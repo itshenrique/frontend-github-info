@@ -1,11 +1,100 @@
-<div class="card">
-  <div class="card-body d-inline-flex p-2 justify-content-center">
-    <div class="row">
-      <form class="form-inline" [formGroup]="form" (submit)="getUserInformation()">
-        <input class="input" id="usernameSearch" formControlName="usernameSearch" type="text"
-          placeholder="Pesquisar...">
-        <button class="btn" type="submit">pesquisar</button>
-      </form>
+<!-- Modal -->
+<div class="modal fade" id="repositoriesModal" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel"> {{ this.repositoriesModalConfig?.title }} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+
+      <div *ngIf="this.repositories && this.repositories.length; else emptyList" class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Stars</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let repository of repositories; index as i">
+              <td>{{ repository.name }}</td>
+              <td>{{ formatString(repository.description, 15) }}</td>
+              <td>{{ repository.stargazers_count }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <nav aria-label="pagination">
+          <ul class="pagination d-flex justify-content-center">
+            <li class="page-item"><a class="page-link" (click)="changePage('PREVIOUS')">Anterior</a></li>
+            <li class="page-item"><a class="page-link" (click)="changePage('NEXT')">Próximo</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <ng-template #emptyList>
+        <div class="modal-body row d-flex justify-content-center">
+          Nenhum repositório encontrado...
+        </div>
+      </ng-template>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
+      </div>
+
     </div>
   </div>
 </div>
+
+<div class=" container-fluid m-4 d-flex justify-content-center">
+  <form class="form-inline" [formGroup]="form" (submit)="getUserInformation(form.get('login').value)">
+    <div class="row">
+      <div class="col-md-6 d-flex justify-content-center">
+        <input class="input" id="login" formControlName="login" type="text" placeholder="Pesquisar...">
+      </div>
+      <div class="col-md-6  d-flex justify-content-center">
+        <button class="btn" type="submit">pesquisar</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="this.user && this.user.id; else emptyUserModel" class="d-flex p-2 justify-content-center">
+  <div class="card infosUsuario">
+    <div class="card-body">
+      <div>
+        <div class="row d-flex justify-content-center">
+          <img class="rounded-circle m-4 d-flex justify-content-center infosUsuario__avatar"
+            src="{{this.user.avatar_url}}" alt="Sem Foto de Perfil">
+          <label *ngIf="this.user.name" class="infosUsuario__name"> Nome: {{this.user.name}}</label>
+          <label class="infosUsuario__name"> Usuário:
+            {{this.user.login}}</label>
+          <label *ngIf="this.user.bio" class="infosUsuario__info"> Biografia:
+            {{this.user.bio}}</label>
+          <label class="infosUsuario__info"> Repositórios: {{this.user.public_repos}}</label>
+          <label class="infosUsuario__info"> Seguidores: {{this.user.followers}}</label>
+          <label class="infosUsuario__info"> Seguindo: {{this.user.following}}</label>
+          <label class="infosUsuario__info"> Gists: {{this.user.public_gists}}</label>
+        </div>
+        <div class="row m-4 d-inline-flex justify-content-end">
+          <div class="col-md-6 col-sm-6">
+            <button class="btn btn-info m-1 col-sm-6" type="button" (click)="this.openModalWithConfig('STARRED')">
+              Starred
+            </button>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <button class="btn btn-dark m-1 col-sm-6" type="button" (click)="this.openModalWithConfig('REPOS')">
+              Repositórios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyUserModel>
+  <div *ngIf="form.get('login').value && this.user" class="row d-flex justify-content-center">
+    Usuário não encontrado
+  </div>
+</ng-template>

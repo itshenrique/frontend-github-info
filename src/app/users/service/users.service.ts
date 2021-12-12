@@ -14,7 +14,13 @@ export class UsersService {
     return this.httpClient.get(`${this.usersEndpoint}/${username}`);
   }
 
-  get(url: string) {
-    return this.httpClient.get(url);
+  listUserStarredRepository(username: string, params?: HttpParams) {
+    return this.httpClient.get(`${this.usersEndpoint}/${username}/starred`, {
+      params,
+    });
+  }
+
+  get(url: string, params?: HttpParams) {
+    return this.httpClient.get(url, { params });
   }
 }

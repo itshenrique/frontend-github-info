@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Github - Info';
+
+  toasts = [
+    { message: 'teste' },
+    { message: 'teste1' },
+    { message: 'teste2' },
+    { message: 'teste3' },
+    { message: 'teste4' },
+    { message: 'teste5' },
+  ];
 }
