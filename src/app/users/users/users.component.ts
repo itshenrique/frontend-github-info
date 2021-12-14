@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
       { name: 'keywords', content: 'Angular, Git, Profile, Github' },
       { name: 'author', content: 'Henrique Pereira' },
     ]);
-    this.setTitle('Git Hub - Home Page');
+    this.setTitle('Home Page - GitHub Info');
   }
 
   ngOnInit(): void {
@@ -59,6 +59,7 @@ export class UsersComponent implements OnInit {
       this.usersService.listUser(login).subscribe({
         next: (result) => {
           this.user = result as User;
+          this.setTitle(`${this.user.login} - GitHub Info`);
         },
         error: (e) => {
           this.user = { login: login };
