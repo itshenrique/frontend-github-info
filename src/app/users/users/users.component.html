@@ -60,21 +60,21 @@
 </div>
 
 <div *ngIf="this.user && this.user.id; else emptyUserModel" class="d-flex p-2 justify-content-center">
-  <div class="card infosUsuario">
+  <div class="card user_info">
     <div class="card-body">
       <div>
         <div class="row d-flex justify-content-center">
-          <img class="rounded-circle m-4 d-flex justify-content-center infosUsuario__avatar"
-            src="{{this.user.avatar_url}}" alt="Sem Foto de Perfil">
-          <label *ngIf="this.user.name" class="infosUsuario__name"> Nome: {{this.user.name}}</label>
-          <label class="infosUsuario__name"> Usuário:
+          <img class="rounded-circle m-4 d-flex justify-content-center user_info__avatar" src="{{this.user.avatar_url}}"
+            alt="Sem Foto de Perfil">
+          <label *ngIf="this.user.name" class="user_info__name"> Nome: {{this.user.name}}</label>
+          <label class="user_info__name"> Usuário:
             {{this.user.login}}</label>
-          <label *ngIf="this.user.bio" class="infosUsuario__info"> Biografia:
+          <label *ngIf="this.user.bio" class="user_info__info"> Biografia:
             {{this.user.bio}}</label>
-          <label class="infosUsuario__info"> Repositórios: {{this.user.public_repos}}</label>
-          <label class="infosUsuario__info"> Seguidores: {{this.user.followers}}</label>
-          <label class="infosUsuario__info"> Seguindo: {{this.user.following}}</label>
-          <label class="infosUsuario__info"> Gists: {{this.user.public_gists}}</label>
+          <label class="user_info__info"> Repositórios: {{this.user.public_repos}}</label>
+          <label class="user_info__info"> Seguidores: {{this.user.followers}}</label>
+          <label class="user_info__info"> Seguindo: {{this.user.following}}</label>
+          <label class="user_info__info"> Gists: {{this.user.public_gists}}</label>
         </div>
         <div class="row m-4 d-inline-flex justify-content-end">
           <div class="col-md-6 col-sm-6">

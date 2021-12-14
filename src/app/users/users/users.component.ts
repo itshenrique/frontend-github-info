@@ -6,6 +6,7 @@ import { User } from '../models/user';
 import { Repository } from '../models/repository';
 import { HttpParams } from '@angular/common/http';
 import { RepositoriesModalConfig } from '../models/repositories-modal';
+import { Meta, Title } from '@angular/platform-browser';
 
 declare let $: any;
 @Component({
@@ -24,14 +25,27 @@ export class UsersComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private meta: Meta,
+    private title: Title
+  ) {
+    this.meta.addTags([
+      { name: 'description', content: 'Search github user profile' },
+      { name: 'keywords', content: 'Angular, Git, Profile, Github' },
+      { name: 'author', content: 'Henrique Pereira' },
+    ]);
+    this.setTitle('Git Hub - Home Page');
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(({ login }) => {
       this.createForm();
       this.getUserInformation(login);
     });
+  }
+
+  public setTitle(newTitle: string) {
+    this.title.setTitle(newTitle);
   }
 
   private createForm(user?: User) {
