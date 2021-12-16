@@ -61,12 +61,6 @@ export class UsersComponent implements OnInit {
           this.user = result as User;
           this.setTitle(`${this.user.login} - GitHub Info`);
         },
-        error: (e) => {
-          this.user = { login: login };
-        },
-        complete: () => {
-          console.info(this.user);
-        },
       });
     }
   }
@@ -83,7 +77,6 @@ export class UsersComponent implements OnInit {
           this.repositories = repositories;
         }
       },
-      error: (e) => console.error(e),
     });
   }
 
@@ -101,7 +94,6 @@ export class UsersComponent implements OnInit {
             this.repositories = repositories;
           }
         },
-        error: (e) => console.error(e),
       });
   }
 
